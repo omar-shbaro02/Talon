@@ -1,0 +1,14 @@
+{
+  "name": "talon",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "dev:backend": "python -m uvicorn app.main:app --reload --port 8000 --app-dir backend",
+    "build": "npm --prefix frontend run build",
+    "lint": "npm --prefix frontend run lint"
+  }
+}
+
