@@ -42,6 +42,14 @@ def ensure_sqlite_dev_columns() -> None:
         "scheduled_start_time": "ALTER TABLE meetings ADD COLUMN scheduled_start_time DATETIME",
         "scheduled_end_time": "ALTER TABLE meetings ADD COLUMN scheduled_end_time DATETIME",
         "timezone": "ALTER TABLE meetings ADD COLUMN timezone VARCHAR(100)",
+        "meeting_provider": "ALTER TABLE meetings ADD COLUMN meeting_provider VARCHAR(50)",
+    }
+    scheduled_event_columns = {column["name"] for column in inspector.get_columns("scheduled_events")} if inspector.has_table("scheduled_events") else set()
+    scheduled_event_additions = {
+        "meeting_provider": "ALTER TABLE scheduled_events ADD COLUMN meeting_provider VARCHAR(50) NOT NULL DEFAULT 'google_meet'",
+        "meeting_link": "ALTER TABLE scheduled_events ADD COLUMN meeting_link TEXT",
+        "invite_status": "ALTER TABLE scheduled_events ADD COLUMN invite_status VARCHAR(50) NOT NULL DEFAULT 'not_sent'",
+        "invite_sent_at": "ALTER TABLE scheduled_events ADD COLUMN invite_sent_at DATETIME",
     }
     with engine.begin() as connection:
         for column, statement in session_additions.items():
@@ -49,6 +57,9 @@ def ensure_sqlite_dev_columns() -> None:
                 connection.execute(text(statement))
         for column, statement in meeting_additions.items():
             if column not in meeting_columns:
+                connection.execute(text(statement))
+        for column, statement in scheduled_event_additions.items():
+            if column not in scheduled_event_columns:
                 connection.execute(text(statement))
 
 

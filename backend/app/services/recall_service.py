@@ -14,7 +14,12 @@ class RecallService:
         self.api_key = settings.recall_api_key
         self.base_url = f"https://{settings.recall_region}.recall.ai/api/v1"
 
-    def create_bot(self, meeting_url: str, bot_name: str = "TALON Assistant") -> dict[str, Any]:
+    def create_bot(
+        self,
+        meeting_url: str,
+        bot_name: str = "TALON Assistant",
+        consent_notice: str | None = None,
+    ) -> dict[str, Any]:
         if not self.api_key:
             return {
                 "id": None,
@@ -27,6 +32,18 @@ class RecallService:
             "bot_name": bot_name,
             "recording_config": {"transcript": {"provider": {"meeting_captions": {}}}},
         }
+        if consent_notice:
+            payload["chat"] = {
+                "on_bot_join": {
+                    "send_to": "everyone",
+                    "message": consent_notice,
+                    "pin": True,
+                },
+                "on_participant_join": {
+                    "message": consent_notice,
+                    "exclude_host": False,
+                },
+            }
         webhook_url = f"{settings.public_backend_url.rstrip('/')}/webhooks/recall"
         payload["real_time_transcription"] = {
             "destination_url": webhook_url,

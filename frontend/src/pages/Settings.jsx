@@ -40,6 +40,8 @@ export default function Settings() {
           <InfoCard label="Backend" value="http://localhost:8000" />
           <InfoCard label="AI Provider" value="OpenAI, configured by backend/.env" />
           <InfoCard label="Database" value="PostgreSQL primary, SQLite fallback" />
+          <InfoCard label="Zoom API" value={calendar?.meeting_providers?.zoom ? 'Configured' : 'Not configured'} />
+          <InfoCard label="Microsoft Teams API" value={calendar?.meeting_providers?.teams ? 'Configured' : 'Not configured'} />
         </div>
       </section>
     </div>

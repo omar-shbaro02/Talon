@@ -113,6 +113,37 @@ python -c "from cryptography.fernet import Fernet; print(Fernet.generate_key().d
 Open `http://localhost:5173/settings` to connect Google Calendar, then use
 `http://localhost:5173/schedule` to create Google Calendar sessions.
 
+## Zoom And Microsoft Teams Meetings
+
+TALON can generate Zoom and Microsoft Teams links from the Schedule dashboard
+after backend API credentials are configured in `backend/.env`.
+
+For Zoom, create a Server-to-Server OAuth app in the Zoom App Marketplace with
+meeting creation permissions, then set:
+
+```text
+ZOOM_ACCOUNT_ID=
+ZOOM_CLIENT_ID=
+ZOOM_CLIENT_SECRET=
+ZOOM_USER_ID=me
+```
+
+For Microsoft Teams, create a Microsoft Entra app registration, add Microsoft
+Graph application permission `OnlineMeetings.ReadWrite.All`, grant admin
+consent, then create and grant an application access policy for the Teams host
+user. Set:
+
+```text
+MICROSOFT_TENANT_ID=
+MICROSOFT_CLIENT_ID=
+MICROSOFT_CLIENT_SECRET=
+TEAMS_USER_ID=
+```
+
+`TEAMS_USER_ID` can be the host user's Microsoft object ID or UPN. For local
+testing only, `TEAMS_ACCESS_TOKEN` can be supplied instead of Microsoft client
+credentials, but the token will expire.
+
 ## MVP Capabilities
 
 - Client workspaces with profile, goals, challenges, and AI coach analysis

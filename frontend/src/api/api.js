@@ -23,6 +23,7 @@ export const api = {
   updateCalendarEvent: (id, payload) => request(`/calendar/events/${id}`, { method: 'PUT', body: JSON.stringify(payload) }),
   deleteCalendarEvent: (id) => request(`/calendar/events/${id}`, { method: 'DELETE' }),
   sendCalendarAgent: (id) => request(`/calendar/events/${id}/send-agent`, { method: 'POST' }),
+  sendCalendarInvite: (id) => request(`/calendar/events/${id}/send-invite`, { method: 'POST' }),
   clients: () => request('/clients'),
   client: (id) => request(`/clients/${id}`),
   createClient: (payload) => request('/clients', { method: 'POST', body: JSON.stringify(payload) }),

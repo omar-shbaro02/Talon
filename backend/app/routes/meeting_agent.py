@@ -54,7 +54,7 @@ def join_meeting_agent(payload: MeetingAgentJoinRequest, db: Session = Depends(g
     db.flush()
 
     try:
-        recall_bot = recall.create_bot(payload.meeting_url, bot.bot_name)
+        recall_bot = recall.create_bot(payload.meeting_url, bot.bot_name, CONSENT_NOTICE)
     except RuntimeError as exc:
         bot.status = "failed"
         db.commit()

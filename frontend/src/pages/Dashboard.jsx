@@ -91,7 +91,7 @@ export default function Dashboard() {
         <div className="panel rounded-lg p-5">
           <div className="mb-4 flex items-center justify-between gap-4">
             <h2 className="text-xl font-black">Today Sessions</h2>
-            <Link className="btn-secondary text-sm" to="/clients">Schedule</Link>
+            <Link className="btn-secondary text-sm" to="/schedule">Schedule</Link>
           </div>
           <div className="space-y-3">
             {summary?.today_sessions?.length ? (

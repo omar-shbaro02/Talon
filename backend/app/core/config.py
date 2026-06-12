@@ -30,6 +30,15 @@ class Settings(BaseSettings):
     google_calendar_scopes: str = "https://www.googleapis.com/auth/calendar"
     frontend_url: str = "http://localhost:5173"
     token_encryption_key: str | None = None
+    zoom_account_id: str | None = None
+    zoom_client_id: str | None = None
+    zoom_client_secret: str | None = None
+    zoom_user_id: str = "me"
+    teams_access_token: str | None = None
+    microsoft_tenant_id: str | None = None
+    microsoft_client_id: str | None = None
+    microsoft_client_secret: str | None = None
+    teams_user_id: str | None = None
 
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
